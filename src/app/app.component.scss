@@ -1,5 +1,19 @@
-.RouterOutlet {
-    padding-top: 4rem;
+.main-router-outlet {
+    padding-top: 5rem;
+    margin-bottom: 3rem;
+}
+
+.main-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+
+    .p-toolbar {
+        border: 0px solid #dee2e6 !important;
+        display: block !important;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -31,4 +45,38 @@
     margin-right: auto;
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.main-footer {
+    .p-toolbar {
+        border: 0px solid #dee2e6 !important;
+        display: block !important;
+    }
+}
+
+.bt-whatsapp {
+    position: fixed;
+    bottom: 6rem;
+    right: 1.4rem;
+    z-index: 99990;
+    cursor: pointer;
+
+    .icon-whatsapp {
+        background: #00e676;
+        color: white;
+        padding: 15px 16px;
+        border-radius: 100%;
+    
+        i {
+            font-size: 20px;
+        }
+
+        &:hover {
+            background: #00a884;
+            i {
+                transition: font 0.3s ease;
+                font-size: 25px;
+            }
+        }
+    }
 }
