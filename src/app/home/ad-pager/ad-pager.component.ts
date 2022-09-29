@@ -1,50 +1,55 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { PrimeNGConfig, SelectItem } from 'primeng/api';
-import { Product } from './product';
-import { ProductService } from './productservice';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+import { LazyLoadEvent } from 'primeng/api';
+import { HomeFilter } from 'src/app/dtos/home-filter';
+import { Page } from 'src/app/dtos/page';
+import { SiteAnnouncementDto } from 'src/app/dtos/site-announcement-dto';
+import { AnnouncementService } from 'src/app/services/announcement.service';
 
 @Component({
-  selector: 'app-ad-pager',
+  selector: 'ad-pager',
   templateUrl: './ad-pager.component.html',
   styleUrls: ['./ad-pager.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AdPagerComponent implements OnInit {
+export class AdPagerComponent {
 
-  products: Product[] = [];
+  announcements: SiteAnnouncementDto[] = [];
+  totalItems = 0;
+  skeletonArray = new Array(5);
+  loading = false;
+  filters = new HomeFilter();
 
-  sortOptions: SelectItem[] = [];
+  constructor(private service: AnnouncementService, private router: Router) { }
 
-  sortOrder: number = 0;
-
-  sortField: string = "";
-
-  sortKey: any;
-
-  constructor(private productService: ProductService, private primengConfig: PrimeNGConfig) { }
-
-  ngOnInit() {
-      this.productService.getProducts().then(data => this.products = data);
-
-      this.sortOptions = [
-          {label: 'Price High to Low', value: '!price'},
-          {label: 'Price Low to High', value: 'price'}
-      ];
-
-      this.primengConfig.ripple = true;
-  }
-  
-  onSortChange(event: any) {
-      let value = event.value;
-
-      if (value.indexOf('!') === 0) {
-          this.sortOrder = -1;
-          this.sortField = value.substring(1, value.length);
-      }
-      else {
-          this.sortOrder = 1;
-          this.sortField = value;
-      }
+  openDetail(announcement: any) {
+    this.router.navigate(["detail/" + announcement.id]);
   }
 
+  onLoadData(lazyLoadEvent: LazyLoadEvent) {
+    // this.loading = true;
+
+    let page = 0;
+    let rows = 5;
+    if (lazyLoadEvent && lazyLoadEvent.first && lazyLoadEvent.rows) {
+      page = lazyLoadEvent.first / lazyLoadEvent.rows;
+      rows = lazyLoadEvent.rows;
+    }
+
+    this.loadData(page, rows);
+  }
+
+  private loadData(page = 0, rows = 5) {
+    this.service.getAnnouncements(page, rows, this.filters)
+      .subscribe((pageItems: Page<SiteAnnouncementDto>) => {
+        this.announcements = pageItems.content
+        this.totalItems = pageItems.totalElements
+        // this.loading = false;
+      })
+  }
+
+  onSearch(filters: HomeFilter) {
+    this.filters = filters;
+    this.loadData(0, 5);
+  }
 }

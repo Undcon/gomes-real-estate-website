@@ -15,14 +15,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { GalleriaModule } from 'primeng/galleria';
+import { SkeletonModule } from 'primeng/skeleton';
 
 import { HomeComponent } from './home/home.component';
 import { AdPagerComponent } from './home/ad-pager/ad-pager.component';
-import { ProductService } from './home/ad-pager/productservice';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
 
 const routes: Routes = [
   {
-    path: '', pathMatch: 'full', component: HomeComponent
+    path: '', redirectTo: '/home', pathMatch: 'full'
+  },
+  {
+    path: 'home', pathMatch: 'full', component: HomeComponent
+  },
+  {
+    path: 'detail/:id', pathMatch: 'full', component: ItemDetailComponent
   }
 ]
 
@@ -30,7 +38,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    AdPagerComponent
+    AdPagerComponent,
+    ItemDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -46,9 +55,10 @@ const routes: Routes = [
     HttpClientModule,
     ScrollTopModule,
     InputNumberModule,
-    MultiSelectModule
+    MultiSelectModule,
+    GalleriaModule,
+    SkeletonModule
   ],
-  providers: [ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

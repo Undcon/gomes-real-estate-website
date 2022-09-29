@@ -1,4 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { HomeFilter } from '../dtos/home-filter';
+import { Page } from '../dtos/page';
+import { SiteAnnouncementTypeDto } from '../dtos/site-announcement-type-dto';
+import { AnnouncementService } from '../services/announcement.service';
+import { AdPagerComponent } from './ad-pager/ad-pager.component';
 
 @Component({
   selector: 'app-home',
@@ -8,21 +13,27 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  cities: any[] = [];
-  selectedCities1: any[] = [];
-  public minValue = null;
-  public maxValue = null;
+  @ViewChild(AdPagerComponent, {static: false})
+  adPagerComponent!: AdPagerComponent;
 
-  constructor() { }
+  types: SiteAnnouncementTypeDto[] = [];
+  filters = new HomeFilter();
+
+  constructor(private service: AnnouncementService) { }
 
   ngOnInit(): void {
-    this.cities = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Istanbul', code: 'IST'},
-      {name: 'Paris', code: 'PRS'}
-    ];
+    this.loadTypes()
   }
 
+  private loadTypes() {
+    this.service.getAnnouncementTypes()
+      .subscribe((pageItems: Page<SiteAnnouncementTypeDto>) => {
+        this.types = pageItems.content
+        // this.loading = false;
+      })
+  }
+
+  public onSearch() {
+    this.adPagerComponent.onSearch(this.filters)
+  }
 }

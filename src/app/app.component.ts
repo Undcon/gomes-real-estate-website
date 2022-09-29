@@ -8,4 +8,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
   title = 'gomes-real-estate-website';
+
+  openUndcon() {
+    window.open('https://undcon.com.br', '_blank');
+  }
 }

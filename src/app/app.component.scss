@@ -1,6 +1,7 @@
 .main-router-outlet {
-    padding-top: 5rem;
+    padding-top: 12rem;
     margin-bottom: 3rem;
+    padding-bottom: 8rem;
 }
 
 .main-toolbar {
@@ -19,6 +20,10 @@
 @media screen and (min-width: 1200px) {
     .container {
         max-width: 1170px;
+    }
+
+    .container-toolbar {
+        max-width: 1150px;
     }
 }
 
@@ -40,17 +45,43 @@
 //     }
 // }
 
+.container-toolbar {
+    .toolbar-right {
+        .vertical-detail {
+            float: right;
+            background-color: #054185;
+            width: 0.2rem;
+            height: 100%;
+        }
+    }
+
+    @extend .container
+}
+
 .container {
     margin-left: auto;
     margin-right: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 17px;
+    padding-right: 17px;
 }
 
 .main-footer {
     .p-toolbar {
         border: 0px solid #dee2e6 !important;
         display: block !important;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .footer-right {
+        float: right;
+        text-align: center;
+
+        .undcon-info {
+            cursor: pointer;
+        }
     }
 }
 
@@ -79,4 +110,8 @@
             }
         }
     }
+}
+
+.main-logo {
+    width: 135px;
 }

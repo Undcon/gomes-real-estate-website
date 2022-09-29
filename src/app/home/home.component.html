@@ -1,31 +1,30 @@
 <p-panel [showHeader]="false">
     <div class="grid p-fluid">
-        <div class="col-3 field">
+        <div class="col-12 md:col-3 field">
             <label for="type">Tipo</label>
-            <p-multiSelect inputId="type" [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City" optionLabel="name" selectedItemsLabel="{0} itens selecionados" [showHeader]="false"></p-multiSelect>
+            <p-multiSelect inputId="type" [options]="types" [(ngModel)]="filters.selectedTypes" defaultLabel="Selecione o tipo" optionLabel="name" selectedItemsLabel="{0} itens selecionados" [showHeader]="false"></p-multiSelect>
         </div>
 
-        <!-- md:col-3 -->
-        <div class="col-3 field">
+        <div class="col-12 md:col-3 md:pr-3 field">
             <label for="moneyValues">Faixa de Preço</label>
             <div id="moneyValues" class="grid p-fluid">
-                <div class="col-6">
-                    <p-inputNumber [(ngModel)]="minValue" mode="currency" currency="BRL" placeholder="Valor Min.">
+                <div class="col-12 md:col-6">
+                    <p-inputNumber [(ngModel)]="filters.minValue" mode="currency" currency="BRL" placeholder="Valor Min.">
                     </p-inputNumber>
                 </div>
-                <div class="col-6">
-                    <p-inputNumber [(ngModel)]="maxValue" mode="currency" currency="BRL" placeholder="Valor Máx.">
+                <div class="col-12 md:col-6">
+                    <p-inputNumber [(ngModel)]="filters.maxValue" mode="currency" currency="BRL" placeholder="Valor Máx.">
                     </p-inputNumber>
                 </div>
             </div>
         </div>
 
-        <div class="col-3">
-            <p-button label="Buscar" icon="pi pi-search" styleClass="p-button-rounded btn-search"></p-button>
+        <div class="col-12 md:col-3">
+            <p-button label="Buscar" icon="pi pi-search" styleClass="p-button-rounded btn-search" (onClick)="onSearch()"></p-button>
         </div>
     </div>
 </p-panel>
         
 <div style="margin-top: 2rem;">
-    <app-ad-pager></app-ad-pager>
+    <ad-pager></ad-pager>
 </div>
