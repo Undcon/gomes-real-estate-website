@@ -9,6 +9,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
 export class AppComponent {
   title = 'gomes-real-estate-website';
 
+  openHome() {
+    window.open('http://localhost:4200/home');
+  }
+
   openUndcon() {
     window.open('https://undcon.com.br', '_blank');
   }

@@ -22,8 +22,8 @@ export class AdPagerComponent {
 
   constructor(private service: AnnouncementService, private router: Router) { }
 
-  openDetail(announcement: any) {
-    this.router.navigate(["detail/" + announcement.id]);
+  openDetail(announcement: SiteAnnouncementDto) {
+    this.router.navigate([`detail/${announcement.id}`, {announcement: JSON.stringify(announcement)}]);
   }
 
   onLoadData(lazyLoadEvent: LazyLoadEvent) {

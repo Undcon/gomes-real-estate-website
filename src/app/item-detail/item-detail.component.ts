@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { SiteAnnouncementDto } from '../dtos/site-announcement-dto';
+
+declare var google: any; //new added line 
 
 @Component({
   selector: 'app-item-detail',
@@ -6,6 +10,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-detail.component.scss']
 })
 export class ItemDetailComponent implements OnInit {
+
+  public isMobile = false;
+  public innerWidth: any;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+    if (this.innerWidth <= 768) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
+  }
 
   images = [
     "https://resizedimgs.vivareal.com/crop/286x200/named.images.sp/6bfca16459a5d097c924846cf43d636e/foto-1-de-imovel-comercial-com-6-quartos-a-venda-1400m-em-praia-de-pipa-tibau-do-sul.jpg",
@@ -41,9 +58,75 @@ export class ItemDetailComponent implements OnInit {
       }
   ];
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) { }
+
+  obj: SiteAnnouncementDto | undefined;
 
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
+    this.obj = JSON.parse(this.activatedRoute.snapshot.params['announcement']) as SiteAnnouncementDto;
+    console.log(this.obj)
   }
 
+  sendMessage() {
+    let message = `Olá, gostaria de saber mais sobre *${this.obj?.title}*`
+    
+    const location = this.getClientLocation();
+    if (location) {
+      message += `\nEndereço: https://www.google.com.br/maps/place/${location}`;
+    }
+
+    const send = `https://web.whatsapp.com/send?phone=5547996141769&text=${window.encodeURIComponent(message)}`;
+    window.open(send, '_blank');
+  }
+
+  public getClientLocation() {
+    let location = null;
+
+    if (this.obj?.address) {
+      location = this.obj?.address;
+    }
+
+    if (this.obj?.addressNumber) {
+      if (location) {
+        location += `, ${this.obj?.addressNumber}`
+      } else {
+        location = this.obj?.addressNumber
+      }
+    }
+
+    if (this.obj?.district) {
+      if (location) {
+        location += ` - ${this.obj?.district}`
+      } else {
+        location = this.obj?.district
+      }
+    }
+
+    if (this.obj?.city && this.obj?.city.name) {
+      if (location) {
+        location += `, ${this.obj?.city.name}`
+      } else {
+        location = this.obj?.city.name
+      }
+    }
+
+    if (this.obj?.state && this.obj?.state) {
+      if (location) {
+        location += ` - ${this.obj?.state}`
+      } else {
+        location = this.obj?.state
+      }
+    }
+
+    return location ? location?.toString().replace(/ /g, '+') : null;
+  }
+
+
+
+
+
+
+
+  
 }

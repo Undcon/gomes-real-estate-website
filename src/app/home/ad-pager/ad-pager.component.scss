@@ -62,12 +62,14 @@
     .product-grid-item {
         margin: .5em;
         border: 1px solid #dee2e6;
+        height: 92.5%;
     
         .product-grid-item-top,
         .product-grid-item-bottom {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            height: 47%;
         }
     
         img {

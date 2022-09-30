@@ -1,24 +1,35 @@
-<p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '660px', 'margin-top':'2em'}" [numVisible]="6"
-    thumbnailsPosition="right" verticalThumbnailViewPortHeight="504px" [showItemNavigators]="true"> 
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item" style="height: 600px; width: 800px; display: block;" (click)="full = true"/>
-    </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
-        <div class="grid grid-nogutter justify-content-center">
-            <img [src]="item" style="height: 60px; width: 80px;"/>
-        </div>
-    </ng-template>
-</p-galleria>
+<div class="grid p-fluid">
+    <div class="col-12 md:col-8 lg:col-8">
+        <p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '100%', 'min-width': '100%'}" [numVisible]="isMobile ? 2 : 6" [showItemNavigators]="true"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item" [class]="isMobile ? 'img-sm' : 'img-lg'"/>
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                    <img [src]="item" style="height: 60px; width: 80px;"/>
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
 
-<!-- FULLSCREEN -->
-<p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '660px', 'margin-top':'2em'}" [numVisible]="6"
-    thumbnailsPosition="right" verticalThumbnailViewPortHeight="504px" [showItemNavigators]="true" [baseZIndex]="100000" [fullScreen]="true" [(visible)]="full"> 
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item" style="height: 600px; width: 800px; display: block;"/>
-    </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
-        <div class="grid grid-nogutter justify-content-center">
-            <img [src]="item" style="height: 60px; width: 80px;"/>
+    <div class="col-12 md:col-4 lg:col-4 description-all">
+        <h1>
+            {{ obj?.title }}
+        </h1>
+        <p class="description">
+            {{ obj?.description }}
+        </p>
+        <div class="price">
+            R${{ obj?.price }}
         </div>
-    </ng-template>
-</p-galleria>
+    </div>
+
+    <div class="col-12">
+    </div>
+</div>
+
+<div class="bt-whatsapp" title="Entrar em contato" (click)="sendMessage()">
+    <div class="icon-whatsapp">
+        <i class="pi pi-whatsapp"></i>
+    </div>
+</div>

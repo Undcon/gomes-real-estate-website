@@ -1,11 +1,11 @@
 <p-dataView [value]="announcements" [paginator]="true" [rows]="5" [totalRecords]="totalItems" [lazy]="true" *ngIf="!loading"
         layout="grid" [showFirstLastIcon]="false" styleClass="data-view-pager-style" (onLazyLoad)="onLoadData($event)">
     <ng-template let-announcement pTemplate="listItem">
-        <div class="p-col-12">
+        <div class="col-12">
             <div class="product-list-item">
                 <div class="product-list-detail">
                     <div class="product-name">{{announcement.title}}</div>
-                    <div class="product-description">{{announcement.description}}</div>
+                    <div class="product-description">{{announcement.district}} - {{announcement.city?.name}} ({{announcement.state?.name}})</div>
                     <!-- <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{product.category}}</span> -->
                 </div>
                 <div class="product-list-action">
@@ -29,7 +29,7 @@
                 <div class="product-grid-item-content">
                     <img _ngcontent-cjy-c165="" [src]="announcement.frontCoverUrl" alt="Blue T-Shirt">
                     <div class="product-name">{{announcement.title}}</div>
-                    <div class="product-description">{{announcement.description}}</div>
+                    <div class="product-description">{{announcement.district}} - {{announcement.city?.name}} ({{announcement.state?.name}})</div>
                 </div>
                 <div class="product-grid-item-bottom">
                     <span class="product-price">R${{announcement.price}}</span>

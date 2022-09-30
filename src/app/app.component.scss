@@ -85,33 +85,7 @@
     }
 }
 
-.bt-whatsapp {
-    position: fixed;
-    bottom: 6rem;
-    right: 1.4rem;
-    z-index: 99990;
-    cursor: pointer;
-
-    .icon-whatsapp {
-        background: #00e676;
-        color: white;
-        padding: 15px 16px;
-        border-radius: 100%;
-    
-        i {
-            font-size: 20px;
-        }
-
-        &:hover {
-            background: #00a884;
-            i {
-                transition: font 0.3s ease;
-                font-size: 25px;
-            }
-        }
-    }
-}
-
 .main-logo {
     width: 135px;
+    cursor: pointer;
 }
