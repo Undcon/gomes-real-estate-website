@@ -16,11 +16,13 @@ export class AnnouncementService {
 
   public getAnnouncements(page: number, size: number, homeFilter?: HomeFilter): Observable<Page<SiteAnnouncementDto>> {
     const filters = this.getFilters(homeFilter)
-    return this.entityService.getAllCustomUrl("/site/announcement/public", page, size, filters);
+    return this.entityService.getAllCustomUrl("/site/announcement/public", page, size, filters, "title ASC");
   }
 
   public getAnnouncementTypes(): Observable<Page<SiteAnnouncementTypeDto>> {
-    return this.entityService.getAllCustomUrl("/site/announcementtype/public", 0, 100);
+    const filters = new Map<string, string>();
+    filters.set(this.getQueryFilter('active', QueryFilterEnum.EQUALS), "true")
+    return this.entityService.getAllCustomUrl("/site/announcementtype/public", 0, 100, filters);
   }
   
   private getFilters(homeFilter: HomeFilter | undefined) {

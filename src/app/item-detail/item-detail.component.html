@@ -1,5 +1,11 @@
 <div class="grid p-fluid">
-    <div class="col-12 md:col-8 lg:col-8">
+    <div id="popup" style="background-color: red; height: 10px; width: 10px;"></div>
+    
+    <div class="col-12">
+        <div id="map" class="map"></div>
+    </div>
+
+    <div class="col-12">
         <p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '100%', 'min-width': '100%'}" [numVisible]="isMobile ? 2 : 6" [showItemNavigators]="true"> 
             <ng-template pTemplate="item" let-item>
                 <img [src]="item" [class]="isMobile ? 'img-sm' : 'img-lg'"/>
@@ -11,20 +17,19 @@
             </ng-template>
         </p-galleria>
     </div>
-
-    <div class="col-12 md:col-4 lg:col-4 description-all">
-        <h1>
+    <!-- md:col-4 lg:col-4  -->
+    <div class="col-12 description-all">
+        <h1 class="title">
             {{ obj?.title }}
         </h1>
-        <p class="description">
-            {{ obj?.description }}
-        </p>
+        <div class="description ql-editor">
+            <div [innerHTML]="obj && obj.description ? (obj.description | safeHtml) : ''">
+
+            </div>
+        </div>
         <div class="price">
             R${{ obj?.price }}
         </div>
-    </div>
-
-    <div class="col-12">
     </div>
 </div>
 

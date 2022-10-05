@@ -1,18 +1,24 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Map } from 'ol';
+import { OSM } from 'ol/source';
+import View from 'ol/View';
+import Overlay from 'ol/Overlay';
+import TileLayer from 'ol/layer/Tile';
 import { SiteAnnouncementDto } from '../dtos/site-announcement-dto';
-
-declare var google: any; //new added line 
+import { fromLonLat } from 'ol/proj';
 
 @Component({
   selector: 'app-item-detail',
   templateUrl: './item-detail.component.html',
-  styleUrls: ['./item-detail.component.scss']
+  styleUrls: ['./item-detail.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ItemDetailComponent implements OnInit {
 
   public isMobile = false;
   public innerWidth: any;
+  public map!: Map;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -65,7 +71,35 @@ export class ItemDetailComponent implements OnInit {
   ngOnInit(): void {
     this.innerWidth = window.innerWidth;
     this.obj = JSON.parse(this.activatedRoute.snapshot.params['announcement']) as SiteAnnouncementDto;
+
+    // this.obj.description = this.obj.description.replace(/\"/gi, "'")
+    console.log(this.obj.description)
     console.log(this.obj)
+
+    this.map = new Map({
+      layers: [
+        new TileLayer({
+          source: new OSM(),
+        }),
+      ],
+      target: 'map',
+      view: new View({ 
+        center: [0, 0],
+        zoom: 2,
+        maxZoom: 18
+      })
+    });
+    
+
+    const el = document.getElementById('popup')
+    if (el) {
+      const popup = new Overlay({
+        element: el
+      });
+      // [-26.9443846,-49.074361,17]
+      popup.setPosition(fromLonLat([-26.9443846, -49.074361]));
+      this.map.addOverlay(popup);
+    }
   }
 
   sendMessage() {

@@ -21,6 +21,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { HomeComponent } from './home/home.component';
 import { AdPagerComponent } from './home/ad-pager/ad-pager.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 const routes: Routes = [
   {
@@ -39,7 +40,8 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     AdPagerComponent,
-    ItemDetailComponent
+    ItemDetailComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
