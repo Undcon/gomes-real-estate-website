@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
 import { HomeFilter } from 'src/app/dtos/home-filter';
@@ -12,23 +12,25 @@ import { AnnouncementService } from 'src/app/services/announcement.service';
   styleUrls: ['./ad-pager.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AdPagerComponent {
+export class AdPagerComponent implements OnInit {
 
   announcements: SiteAnnouncementDto[] = [];
   totalItems = 0;
-  skeletonArray = new Array(5);
-  loading = false;
+  skeletonArray = new Array(9);
+  loading = true;
   filters = new HomeFilter();
 
   constructor(private service: AnnouncementService, private router: Router) { }
 
+  ngOnInit() {
+    this.loadData();
+  }
+
   openDetail(announcement: SiteAnnouncementDto) {
-    this.router.navigate([`detail/${announcement.id}`, {announcement: JSON.stringify(announcement)}]);
+    this.router.navigate([`detail/${announcement.id}`]);
   }
 
   onLoadData(lazyLoadEvent: LazyLoadEvent) {
-    // this.loading = true;
-
     let page = 0;
     let rows = 5;
     if (lazyLoadEvent && lazyLoadEvent.first && lazyLoadEvent.rows) {
@@ -39,17 +41,18 @@ export class AdPagerComponent {
     this.loadData(page, rows);
   }
 
-  private loadData(page = 0, rows = 5) {
+  private loadData(page = 0, rows = 9) {
     this.service.getAnnouncements(page, rows, this.filters)
       .subscribe((pageItems: Page<SiteAnnouncementDto>) => {
         this.announcements = pageItems.content
         this.totalItems = pageItems.totalElements
-        // this.loading = false;
+        this.loading = false;
       })
   }
 
   onSearch(filters: HomeFilter) {
+    this.loading = true;
     this.filters = filters;
-    this.loadData(0, 5);
+    this.loadData(0, 9);
   }
 }

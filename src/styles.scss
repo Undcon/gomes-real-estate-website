@@ -19,22 +19,22 @@ mat-toolbar {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 5.5px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 15px #a6e4b3;
+  box-shadow: inset 0 0 15px #ffffff;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #3b3a3a;
+  background: #074186;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #13161b;
+  background: #1b518f;
 }
 
 .p-button {

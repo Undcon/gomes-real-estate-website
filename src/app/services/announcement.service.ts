@@ -6,6 +6,8 @@ import { QueryFilterEnum } from '../enum/query-filter';
 import { Observable } from 'rxjs';
 import { SiteAnnouncementTypeDto } from '../dtos/site-announcement-type-dto';
 import { HomeFilter } from '../dtos/home-filter';
+import { FileDto } from '../dtos/file-dto';
+import { CityDto } from '../dtos/city-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +22,15 @@ export class AnnouncementService {
   }
 
   public getAnnouncementTypes(): Observable<Page<SiteAnnouncementTypeDto>> {
-    const filters = new Map<string, string>();
-    filters.set(this.getQueryFilter('active', QueryFilterEnum.EQUALS), "true")
-    return this.entityService.getAllCustomUrl("/site/announcementtype/public", 0, 100, filters);
+    return this.entityService.getAllCustomUrl("/site/announcementtype/public", 0, 100);
+  }
+
+  public getAnnouncementCities(): Observable<CityDto[]> {
+    return this.entityService.getAllCustomUrl("/site/announcement/public/cities");
+  }
+
+  public getAnnouncement(id: number): Observable<SiteAnnouncementDto> {
+    return this.entityService.get("/site/announcement/public", id);
   }
   
   private getFilters(homeFilter: HomeFilter | undefined) {
@@ -42,8 +50,19 @@ export class AnnouncementService {
       if (homeFilter.maxValue) {
         filters.set(this.getQueryFilter('price', QueryFilterEnum.SMALLER_EQUAL), homeFilter.maxValue)
       }
+
+      if (homeFilter.selectedCity) {
+        filters.set(this.getQueryFilter('city.id', QueryFilterEnum.EQUALS), homeFilter.selectedCity.id.toString())
+      }
     }
+
     return filters;
+  }
+
+  public getAllAttachment(id: number): Observable<FileDto[]> {
+    return this.entityService.getCustomUrl(
+      `/site/announcement/public/${id}/attachments`
+    );
   }
 
   private getQueryFilter(field: string, operation: QueryFilterEnum) {

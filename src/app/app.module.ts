@@ -22,6 +22,7 @@ import { HomeComponent } from './home/home.component';
 import { AdPagerComponent } from './home/ad-pager/ad-pager.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { FormatCurrencyPipe } from './pipes/format-currency.pipe';
 
 const routes: Routes = [
   {
@@ -41,7 +42,8 @@ const routes: Routes = [
     HomeComponent,
     AdPagerComponent,
     ItemDetailComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    FormatCurrencyPipe
   ],
   imports: [
     BrowserModule,

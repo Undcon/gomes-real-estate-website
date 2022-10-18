@@ -31,8 +31,13 @@ export class EntityService {
     return this.http.get(`${this.baseUrl}${url}`, { params, headers: this.headers });
   }
 
-  public get(url: string = "", id: number) {
+  public get(url: string = "", id: number): any {
     const params = { id: this.tenantId };
     return this.http.get(`${this.baseUrl}${url}/${id}`, { params, headers: this.headers });
+  }
+
+  public getCustomUrl(url: string): any {
+    const params = { id: this.tenantId };
+    return this.http.get(`${this.baseUrl}${url}`, { params, headers: this.headers });
   }
 }

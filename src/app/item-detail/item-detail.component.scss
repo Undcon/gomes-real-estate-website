@@ -22,16 +22,18 @@
         text-align: center;
     }
 
-    .description {
-        height: auto !important;
-        font-size: 15px;
+    .content-description {
+        background-color: #e5e5e5;
+        border-radius: 10px;
+
+        .description {
+            height: auto !important;
+            font-size: 18px;
+        }
     }
 
     .price {
-        text-align: center;
-        font-weight: bold;
-        font-size: 20px;
-        margin-top: 3rem;
+        text-align: end;
     }
 }
 
@@ -62,7 +64,30 @@
     }
 }
 
-.map {
-    width: 100%;
-    height: 600px;
+.bt-maps {
+    position: fixed;
+    bottom: 11.5rem;
+    right: 1.4rem;
+    z-index: 99990;
+    cursor: pointer;
+
+    .icon-maps {
+        background: #4070e4;
+        // background-image: radial-gradient(#d32e29, #4070e4, #4d81ef, #e5b12a, #5da34d);
+        color: white;
+        padding: 15px 16px;
+        border-radius: 100%;
+    
+        i {
+            font-size: 20px;
+        }
+
+        &:hover {
+            background: #345ec3;
+            i {
+                transition: font 0.3s ease;
+                font-size: 25px;
+            }
+        }
+    }
 }

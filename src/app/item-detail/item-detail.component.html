@@ -1,40 +1,64 @@
-<div class="grid p-fluid">
-    <div id="popup" style="background-color: red; height: 10px; width: 10px;"></div>
-    
+<div class="grid p-fluid" *ngIf="!loading">
     <div class="col-12">
-        <div id="map" class="map"></div>
-    </div>
-
-    <div class="col-12">
-        <p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '100%', 'min-width': '100%'}" [numVisible]="isMobile ? 2 : 6" [showItemNavigators]="true"> 
+        <p-galleria [value]="fileImages" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '100%', 'min-width': '100%'}" [numVisible]="isMobile ? 2 : 6" [showItemNavigators]="true"> 
             <ng-template pTemplate="item" let-item>
-                <img [src]="item" [class]="isMobile ? 'img-sm' : 'img-lg'"/>
+                <img [src]="item.url" [class]="isMobile ? 'img-sm' : 'img-lg'"/>
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
                 <div class="grid grid-nogutter justify-content-center">
-                    <img [src]="item" style="height: 60px; width: 80px;"/>
+                    <img [src]="item.url" style="height: 60px; width: 80px;"/>
                 </div>
             </ng-template>
         </p-galleria>
     </div>
-    <!-- md:col-4 lg:col-4  -->
-    <div class="col-12 description-all">
-        <h1 class="title">
-            {{ obj?.title }}
+    
+    <div class="col-12 grid p-fluid description-all">
+        <h1 class="col-12 md:col-6"> {{ entity?.title }} </h1>
+        <h1 class="col-12 md:col-6 price">
+            {{ entity?.price | formatCurrency }}
         </h1>
-        <div class="description ql-editor">
-            <div [innerHTML]="obj && obj.description ? (obj.description | safeHtml) : ''">
 
+        <div class="col-12 content-description">
+            <div class="description ql-editor">
+                <span [innerHTML]="entity && entity.description ? (entity.description | safeHtml) : ''">
+
+                </span>
             </div>
-        </div>
-        <div class="price">
-            R${{ obj?.price }}
         </div>
     </div>
 </div>
 
-<div class="bt-whatsapp" title="Entrar em contato" (click)="sendMessage()">
+<div class="bt-maps" title="Visualizar no Google Maps" (click)="openMaps()" *ngIf="!loading">
+    <div class="icon-maps">
+        <i class="pi pi-map-marker"></i>
+    </div>
+</div>
+
+<div class="bt-whatsapp" title="Entrar em contato" (click)="sendMessage()" *ngIf="!loading">
     <div class="icon-whatsapp">
         <i class="pi pi-whatsapp"></i>
+    </div>
+</div>
+
+<div class="grid" *ngIf="loading">
+    <div class="col-12">
+        <p-skeleton styleClass="mb-2" height="35rem"></p-skeleton>
+    </div>
+
+    <div class="col-12">
+        <div class="flex justify-content-between mt-3">
+            <p-skeleton width="20rem" height="3rem"></p-skeleton>
+            <p-skeleton width="20rem" height="3rem"></p-skeleton>
+        </div>
+    </div>
+
+    <div class="col-12" style="margin-top: 20px;">
+        <p-skeleton width="15rem" height="2rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="10rem" height="2rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="13rem" height="2rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="11rem" height="2rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="18rem" height="2rem" styleClass="mb-2"></p-skeleton>
     </div>
 </div>
