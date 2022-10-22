@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SiteAnnouncementDto } from '../dtos/site-announcement-dto';
 import { AnnouncementService } from '../services/announcement.service';
 import { FileDto } from '../dtos/file-dto';
@@ -15,6 +15,7 @@ export class ItemDetailComponent implements OnInit {
   public isMobile = false;
   public innerWidth: any;
   public loading = true;
+  public isError = false;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -47,7 +48,7 @@ export class ItemDetailComponent implements OnInit {
 
   public fileImages: FileDto[] = []
 
-  constructor(private activatedRoute: ActivatedRoute, private service: AnnouncementService) { }
+  constructor(private activatedRoute: ActivatedRoute, private service: AnnouncementService, private router: Router) { }
 
   public entity: SiteAnnouncementDto | undefined;
 
@@ -69,7 +70,7 @@ export class ItemDetailComponent implements OnInit {
         this.entity = res
         this.loadImages()
       },
-      error: (err: Error) => console.error('Observer got an error: ' + err)
+      error: () => this.isError = true
     })
   }
 
@@ -81,7 +82,7 @@ export class ItemDetailComponent implements OnInit {
           this.fileImages = files
           this.loading = false;
         },
-        error: (err: Error) => console.error('Não foi possível carregar os anexos. ' + err)
+        error: () => this.isError = true
       })
     }
   }
@@ -143,5 +144,9 @@ export class ItemDetailComponent implements OnInit {
     }
 
     return location ? location?.toString().replace(/ /g, '+') : null;
+  }
+
+  public onBack() {
+    this.router.navigate([`home`]);
   }
 }

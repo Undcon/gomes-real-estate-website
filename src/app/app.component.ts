@@ -1,4 +1,5 @@
 import { Component, HostListener, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,9 @@ import { Component, HostListener, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
   title = 'gomes-real-estate-website';
+
+
+  constructor(private router: Router) { }
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
@@ -25,7 +29,7 @@ export class AppComponent {
   }
 
   openHome() {
-    window.open('http://localhost:4200/home');
+    this.router.navigate([`home`]);
   }
 
   openUndcon() {

@@ -26,13 +26,13 @@ import { FormatCurrencyPipe } from './pipes/format-currency.pipe';
 
 const routes: Routes = [
   {
-    path: '', redirectTo: '/home', pathMatch: 'full'
-  },
-  {
-    path: 'home', pathMatch: 'full', component: HomeComponent
+    path: '', pathMatch: 'full', component: HomeComponent
   },
   {
     path: 'detail/:id', pathMatch: 'full', component: ItemDetailComponent
+  },
+  {
+    path: "**", redirectTo: '/',
   }
 ]
 
