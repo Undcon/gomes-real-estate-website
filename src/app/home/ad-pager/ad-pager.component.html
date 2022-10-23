@@ -1,5 +1,5 @@
-<div *ngIf="totalItems">
-    <p-dataView [value]="announcements" [paginator]="true" [rows]="9" [totalRecords]="totalItems" [lazy]="true" *ngIf="!loading"
+<div *ngIf="!loading && totalItems">
+    <p-dataView [value]="announcements" [paginator]="true" [rows]="9" [totalRecords]="totalItems" [lazy]="true"
             layout="grid" [showFirstLastIcon]="false" styleClass="data-view-pager-style" (onLazyLoad)="onLoadData($event)">
         <ng-template let-announcement pTemplate="listItem">
             <div class="col-12">
@@ -32,15 +32,6 @@
     </p-dataView>
 </div>
 
-<div class="empty-results" *ngIf="!totalItems && !loading">
-    <div>
-        <i class="pi pi-filter-slash"></i>
-    </div>
-    <div>
-        <label>Nenhum resultado foi encontrado.</label>
-    </div>
-</div>
-
 <div class="grid" *ngIf="loading">
     <div class="col-12 md:col-4 md:pr-4" *ngFor="let x of skeletonArray">
         <div class="product-grid-item card ">
@@ -58,5 +49,14 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="empty-results" *ngIf="!loading && !totalItems">
+    <div>
+        <i class="pi pi-filter-slash"></i>
+    </div>
+    <div>
+        <label>Nenhum resultado foi encontrado.</label>
     </div>
 </div>

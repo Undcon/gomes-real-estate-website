@@ -104,6 +104,6 @@ export class HomeComponent implements OnInit {
       typeIds.push(type.id);
     })
 
-    this.router.navigate(['/home'], { queryParams: { selectedCity: this.filters.selectedCity?.id, selectedTypes: typeIds, minValue: this.filters.minValue, maxValue: this.filters.maxValue } });
+    this.router.navigate(['/'], { queryParams: { selectedCity: this.filters.selectedCity?.id, selectedTypes: typeIds, minValue: this.filters.minValue, maxValue: this.filters.maxValue } });
   }
 }

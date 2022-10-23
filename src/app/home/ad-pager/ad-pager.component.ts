@@ -12,7 +12,7 @@ import { AnnouncementService } from 'src/app/services/announcement.service';
   styleUrls: ['./ad-pager.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AdPagerComponent implements OnInit {
+export class AdPagerComponent {
 
   announcements: SiteAnnouncementDto[] = [];
   totalItems = 0;
@@ -22,17 +22,14 @@ export class AdPagerComponent implements OnInit {
 
   constructor(private service: AnnouncementService, private router: Router) { }
 
-  ngOnInit() {
-    this.loadData();
-  }
-
   openDetail(announcement: SiteAnnouncementDto) {
     this.router.navigate([`detail/${announcement.id}`]);
   }
 
   onLoadData(lazyLoadEvent: LazyLoadEvent) {
+    this.loading = true;
     let page = 0;
-    let rows = 5;
+    let rows = 9;
     if (lazyLoadEvent && lazyLoadEvent.first && lazyLoadEvent.rows) {
       page = lazyLoadEvent.first / lazyLoadEvent.rows;
       rows = lazyLoadEvent.rows;
@@ -53,6 +50,6 @@ export class AdPagerComponent implements OnInit {
   onSearch(filters: HomeFilter) {
     this.loading = true;
     this.filters = filters;
-    this.loadData(0, 9);
+    this.loadData();
   }
 }
