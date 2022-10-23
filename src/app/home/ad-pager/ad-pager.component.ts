@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
 import { HomeFilter } from 'src/app/dtos/home-filter';
@@ -27,7 +27,6 @@ export class AdPagerComponent {
   }
 
   onLoadData(lazyLoadEvent: LazyLoadEvent) {
-    this.loading = true;
     let page = 0;
     let rows = 9;
     if (lazyLoadEvent && lazyLoadEvent.first && lazyLoadEvent.rows) {
