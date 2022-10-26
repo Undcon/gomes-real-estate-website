@@ -82,6 +82,37 @@
     
         .product-grid-item-content {
             text-align: center;
+
+            img {
+                margin-bottom: 10px;
+            }
+
+            .availabilities {
+                margin-bottom: 7px;
+
+                .available-badge {
+                    padding: .25em .5rem;
+                    font-weight: 700;
+                    font-size: 11px;
+                    letter-spacing: 0.3px;
+                }
+            
+                .available-sale {
+                    border-radius: 5px 0 0 5px;
+                    background: #c8e6c9;
+                    color: #256029;
+                }
+            
+                .available-rent {
+                    border-radius: 0 5px 5px 0;
+                    background: #feedaf;
+                    color: #8a5340;
+                }
+
+                .border-all {
+                    border-radius: 5px !important;
+                }
+            }
         }
     
         .product-price {
@@ -145,7 +176,7 @@
 }
 
 .empty-results {
-    margin-bottom: 15rem;
+    margin-bottom: 14rem;
     margin-top: 15rem;
     text-align: center;
 
@@ -156,6 +187,21 @@
     }
 
     label {
-        font-size: 15px;
+        font-size: 17px;
+    }
+}
+
+.other-filters {
+    padding: 0 12px 0 12px;
+
+    .qtd {
+        margin-top: 15px;
+        font-size: 13px;
+    }
+
+    .order {
+        .p-dropdown {
+            float: right;
+        }
     }
 }

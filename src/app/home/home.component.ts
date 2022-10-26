@@ -22,8 +22,12 @@ export class HomeComponent implements OnInit {
   cities: CityDto[] = [];
   filters = new HomeFilter();
   isSearchButton = false;
+  availabilities = [
+    {label: 'Comprar', value: 'comprar'},
+    {label: 'Alugar', value: 'alugar'}
+  ];
 
-  constructor(private service: AnnouncementService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private service: AnnouncementService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loadCities();
@@ -48,9 +52,11 @@ export class HomeComponent implements OnInit {
   }
 
   private loadParams() {
-    this.route.queryParams
+    this.activatedRoute.queryParams
       .subscribe((params: any) => {
-        if (!this.isSearchButton) {
+        if (!params.available) {
+          this.addParams();
+        } else if (!this.isSearchButton) {
           if (params.selectedCity) {
             const selected =  this.cities.find(c => c.id == params.selectedCity)
             if (selected) {
@@ -58,19 +64,10 @@ export class HomeComponent implements OnInit {
             }
           }
 
-          if (params.selectedTypes) {
-            if (Array.isArray(params.selectedTypes)) {
-              params.selectedTypes.forEach((id: number) => {
-                const selected =  this.types.find(t => t.id == id)
-                if (selected) {
-                  this.filters.selectedTypes.push(selected)
-                }
-              });
-            } else {
-              const selected =  this.types.find(t => t.id == params.selectedTypes)
-              if (selected) {
-                this.filters.selectedTypes.push(selected)
-              }
+          if (params.selectedType) {
+            const selected =  this.types.find(c => c.id == params.selectedType)
+            if (selected) {
+              this.filters.selectedType = selected
             }
           }
   
@@ -80,6 +77,10 @@ export class HomeComponent implements OnInit {
   
           if (params.maxValue) {
             this.filters.maxValue = params.maxValue;
+          }
+
+          if (params.available) {
+            this.filters.available = params.available;
           }
   
           this.search();
@@ -99,11 +100,10 @@ export class HomeComponent implements OnInit {
   }
 
   private addParams() {
-    const typeIds: number[] = [];
-    this.filters.selectedTypes.forEach(type => {
-      typeIds.push(type.id);
-    })
+    this.router.navigate(['/'], { queryParams: { selectedCity: this.filters.selectedCity?.id, selectedType: this.filters.selectedType?.id, minValue: this.filters.minValue, maxValue: this.filters.maxValue, available: this.filters.available } });
+  }
 
-    this.router.navigate(['/'], { queryParams: { selectedCity: this.filters.selectedCity?.id, selectedTypes: typeIds, minValue: this.filters.minValue, maxValue: this.filters.maxValue } });
+  public hasFilters() {
+    return (this.filters && (this.filters.maxValue || this.filters.minValue || this.filters.selectedCity?.id || this.filters.selectedType?.id)) ? true : false; 
   }
 }

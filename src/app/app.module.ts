@@ -23,6 +23,7 @@ import { AdPagerComponent } from './home/ad-pager/ad-pager.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { FormatCurrencyPipe } from './pipes/format-currency.pipe';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 const routes: Routes = [
   {
@@ -61,7 +62,8 @@ const routes: Routes = [
     InputNumberModule,
     MultiSelectModule,
     GalleriaModule,
-    SkeletonModule
+    SkeletonModule,
+    SelectButtonModule
   ],
   bootstrap: [AppComponent]
 })

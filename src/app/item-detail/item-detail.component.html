@@ -14,17 +14,19 @@
         </div>
         
         <div class="col-12 grid p-fluid description-all">
-            <h1 class="col-12 md:col-6"> {{ entity?.title }} </h1>
-            <h1 class="col-12 md:col-6 price">
-                {{ entity?.price | formatCurrency }}
-            </h1>
-    
+            <h1 class="col-12 title"> {{ entity?.title }} </h1>
+
             <div class="col-12 content-description">
                 <div class="description ql-editor">
-                    <span [innerHTML]="entity && entity.description ? (entity.description | safeHtml) : ''">
-    
-                    </span>
+                    <span [innerHTML]="entity && entity.description ? (entity.description | safeHtml) : ''"></span>
                 </div>
+            </div>
+
+            <div class="col-12 price" [class]="entity?.availableForRent ? 'md:col-6' : ''" *ngIf="entity?.availableForSale">
+                <span class="available-badge available-sale">Valor para compra {{ entity?.price | formatCurrency }}</span>
+            </div>
+            <div class="col-12 price" [class]="entity?.availableForSale ? 'md:col-6' : ''" *ngIf="entity?.availableForRent">
+                <span class="available-badge available-rent">Valor para locação {{ entity?.priceForRent | formatCurrency }}</span>
             </div>
         </div>
     </div>

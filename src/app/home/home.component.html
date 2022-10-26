@@ -1,8 +1,17 @@
 <p-panel [showHeader]="false">
     <div class="grid p-fluid">
-        <div class="col-12 md:col-3 field">
-            <label for="type">Localização</label>
-            <p-dropdown [options]="cities" styleClass="w-full" emptyFilterMessage="Nenhum resultado encontrado" emptyMessage="Nenhum resultado encontrado" [(ngModel)]="filters.selectedCity" [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecione a cidade">
+        <div class="col-12 md:col-2 available-style">
+            <p-selectButton inputId="available" [options]="availabilities" [(ngModel)]="filters.available" optionLabel="label" optionValue="value"></p-selectButton>
+        </div>
+
+        <div class="col-12 md:col-2 field">
+            <label for="type">Tipo</label>
+            <p-dropdown inputId="type" [options]="types" styleClass="w-full" emptyMessage="Nenhum tipo encontrado" [(ngModel)]="filters.selectedType" placeholder="Selecione o tipo" optionLabel="name" [showClear]="true"></p-dropdown>
+        </div>
+
+        <div class="col-12 md:col-2 field">
+            <label for="locale">Localização</label>
+            <p-dropdown inputId="locale" [options]="cities" styleClass="w-full" emptyFilterMessage="Nenhum resultado encontrado" emptyMessage="Nenhum resultado encontrado" [(ngModel)]="filters.selectedCity" [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecione a cidade">
                 <ng-template pTemplate="selectedItem">
                     <div *ngIf="filters.selectedCity">
                         <div>{{filters.selectedCity.name}} - {{filters.selectedCity.state}}</div>
@@ -16,11 +25,6 @@
         </div>
 
         <div class="col-12 md:col-3 field">
-            <label for="type">Tipo</label>
-            <p-multiSelect inputId="type" [options]="types" emptyMessage="Nenhum tipo encontrado" [(ngModel)]="filters.selectedTypes" defaultLabel="Selecione o tipo" optionLabel="name" selectedItemsLabel="{0} tipos selecionados" [showHeader]="false"></p-multiSelect>
-        </div>
-
-        <div class="col-12 md:col-3 md:pr-3 field">
             <label for="moneyValues">Faixa de Preço</label>
             <div id="moneyValues" class="grid p-fluid">
                 <div class="col-12 md:col-6">

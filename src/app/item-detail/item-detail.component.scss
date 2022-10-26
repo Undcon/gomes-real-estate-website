@@ -1,5 +1,5 @@
 .main-img-galleria {
-    width: 100%;
+    max-width: 100%;
     display: block;
 }
 
@@ -33,7 +33,26 @@
     }
 
     .price {
-        text-align: end;
+        margin-top: 25px;
+        text-align: center;
+
+        .available-badge {
+            padding: 0.5em 0.8rem;
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 0.3px;
+            border-radius: 5px;
+        }
+    
+        .available-sale {
+            background: #c8e6c9;
+            color: #256029;
+        }
+    
+        .available-rent {
+            background: #feedaf;
+            color: #8a5340;
+        }
     }
 }
 
@@ -104,7 +123,7 @@
     }
 
     label {
-        font-size: 15px;
+        font-size: 17px;
     }
 }
 

@@ -6,6 +6,7 @@ export interface SiteAnnouncementDto {
 	description: string;
 	type: IdAndNameDto;
 	price: number;
+	priceForRent: number;
 	state: IdAndNameDto;
 	city: IdAndNameDto;
 	user: IdAndNameDto;
@@ -14,4 +15,6 @@ export interface SiteAnnouncementDto {
 	addressNumber: string;
 	cep: string;
 	frontCoverUrl: string;
+	availableForSale: boolean;
+	availableForRent: boolean;
 }

@@ -16,9 +16,9 @@ export class AnnouncementService {
   
   constructor(private entityService: EntityService) { }
 
-  public getAnnouncements(page: number, size: number, homeFilter?: HomeFilter): Observable<Page<SiteAnnouncementDto>> {
+  public getAnnouncements(page: number, size: number, homeFilter: HomeFilter, order: string): Observable<Page<SiteAnnouncementDto>> {
     const filters = this.getFilters(homeFilter)
-    return this.entityService.getAllCustomUrl("/site/announcement/public", page, size, filters, "title ASC");
+    return this.entityService.getAllCustomUrl("/site/announcement/public", page, size, filters, order);
   }
 
   public getAnnouncementTypes(): Observable<Page<SiteAnnouncementTypeDto>> {
@@ -37,12 +37,6 @@ export class AnnouncementService {
     const filters = new Map<string, string>();
 
     if (homeFilter) {
-      if (homeFilter.selectedTypes) {
-        homeFilter.selectedTypes.forEach(type => {
-          filters.set(this.getQueryFilter('type.id', QueryFilterEnum.EQUALS), type.id.toString())
-        })
-      }
-
       if (homeFilter.minValue) {
         filters.set(this.getQueryFilter('price', QueryFilterEnum.BIGGER_EQUAL), homeFilter.minValue)
       }
@@ -53,6 +47,18 @@ export class AnnouncementService {
 
       if (homeFilter.selectedCity) {
         filters.set(this.getQueryFilter('city.id', QueryFilterEnum.EQUALS), homeFilter.selectedCity.id.toString())
+      }
+
+      if (homeFilter.selectedType) {
+        filters.set(this.getQueryFilter('type.id', QueryFilterEnum.EQUALS), homeFilter.selectedType.id.toString())
+      }
+
+      if (homeFilter.available) {
+        if (homeFilter.available === 'comprar') {
+          filters.set(this.getQueryFilter('availableForSale', QueryFilterEnum.EQUALS), 'true');
+        } else if (homeFilter.available === 'alugar') {
+          filters.set(this.getQueryFilter('availableForRent', QueryFilterEnum.EQUALS), 'true')
+        }
       }
     }
 

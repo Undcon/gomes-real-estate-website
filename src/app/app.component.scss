@@ -53,6 +53,27 @@
             width: 0.2rem;
             height: 100%;
         }
+
+        .content-contact {
+            height: -webkit-fill-available;
+            float: right;
+            float: right;
+            margin-right: 1rem;
+            text-align: center;
+            color: #054185;
+
+            .send-contact {
+                cursor: pointer;
+
+                &:hover {
+                    color: #1b518f !important;
+                }
+
+                .phone-number {
+                    font-weight: bold;
+                }
+            }
+        }
     }
 
     @extend .container

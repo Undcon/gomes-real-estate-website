@@ -52,6 +52,37 @@ mat-toolbar {
   padding: 1rem 0.25rem;
 }
 
+.p-selectbutton .p-button {
+  &:hover {
+    background: #1b518f !important;
+    border-color: #1b518f !important;
+    color: #ffffff !important;
+  }
+}
+
+.p-selectbutton .p-button.p-highlight {
+  background: #074186 !important;
+  border-color: #074186 !important;
+  color: #ffffff !important;
+}
+
+.p-scrolltop.p-link {
+  background: rgba(7, 65, 134, 0.8) !important;
+}
+
+.p-scrolltop {
+  right: 50% !important;
+  left: 50% !important;
+}
+
+.p-galleria-item {
+  background: rgba(126, 147, 177, 0.5) !important;
+}
+
+.main-img-galleria, .img-sm, .img-lg {
+  width: auto !important;
+}
+
 // p-sm-* : min-width 576px
 // p-md-* : min-width 768px
 // p-lg-* : min-width 992px

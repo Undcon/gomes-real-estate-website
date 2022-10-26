@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SiteAnnouncementDto } from '../dtos/site-announcement-dto';
 import { AnnouncementService } from '../services/announcement.service';
 import { FileDto } from '../dtos/file-dto';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-item-detail',
@@ -96,7 +97,7 @@ export class ItemDetailComponent implements OnInit {
       message += `\n\n*Endereço:* https://www.google.com.br/maps/place/${location}`;
     }
 
-    const send = `https://web.whatsapp.com/send?phone=5547996141769&text=${window.encodeURIComponent(message)}`;
+    const send = `https://web.whatsapp.com/send?phone=${environment.phoneNumber}&text=${window.encodeURIComponent(message)}`;
     window.open(send, '_blank');
   }
 
