@@ -37,12 +37,14 @@ export class AnnouncementService {
     const filters = new Map<string, string>();
 
     if (homeFilter) {
+      const priceFilter = homeFilter.available == 'comprar' ? 'price' : 'priceForRent';
+
       if (homeFilter.minValue) {
-        filters.set(this.getQueryFilter('price', QueryFilterEnum.BIGGER_EQUAL), homeFilter.minValue)
+        filters.set(this.getQueryFilter(priceFilter, QueryFilterEnum.BIGGER_EQUAL), homeFilter.minValue)
       }
 
       if (homeFilter.maxValue) {
-        filters.set(this.getQueryFilter('price', QueryFilterEnum.SMALLER_EQUAL), homeFilter.maxValue)
+        filters.set(this.getQueryFilter(priceFilter, QueryFilterEnum.SMALLER_EQUAL), homeFilter.maxValue)
       }
 
       if (homeFilter.selectedCity) {

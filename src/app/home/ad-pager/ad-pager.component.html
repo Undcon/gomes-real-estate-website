@@ -28,7 +28,7 @@
             <div class="col-12 md:col-4 md:pr-2 md:pl-2">
                 <div class="product-grid-item card">
                     <div class="product-grid-item-content">
-                        <img [src]="announcement.frontCoverUrl">
+                        <img [src]="announcement.frontCoverUrl" (click)="openDetail(announcement)">
                         <div header-right class="availabilities">
                             <span class="available-badge available-sale" [class.border-all]="!announcement.availableForRent" *ngIf="announcement.availableForSale">Comprar</span>
                             <span class="available-badge available-rent" [class.border-all]="!announcement.availableForSale" *ngIf="announcement.availableForRent">Alugar</span>

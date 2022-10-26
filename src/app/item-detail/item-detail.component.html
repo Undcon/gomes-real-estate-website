@@ -14,7 +14,11 @@
         </div>
         
         <div class="col-12 grid p-fluid description-all">
-            <h1 class="col-12 title"> {{ entity?.title }} </h1>
+            <div class="col-12 title-header">
+                <h1 class="title">{{ entity?.title }}</h1>
+                <div class="type"> {{ entity?.type?.name }} </div>
+                <div>{{entity?.district}} - {{entity?.city?.name}} ({{entity?.state?.name}})</div>
+            </div>
 
             <div class="col-12 content-description">
                 <div class="description ql-editor">

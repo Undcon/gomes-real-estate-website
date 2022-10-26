@@ -18,8 +18,19 @@
 }
 
 .description-all {
-    .title {
+    .title-header {
         text-align: center;
+        font-size: 12px;
+
+        .title {
+            margin-bottom: 5px;
+        }
+
+        .type {
+            margin-bottom: 2px;
+        }
+
+        margin-bottom: 15px;
     }
 
     .content-description {

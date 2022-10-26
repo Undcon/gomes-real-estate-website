@@ -106,4 +106,9 @@ export class HomeComponent implements OnInit {
   public hasFilters() {
     return (this.filters && (this.filters.maxValue || this.filters.minValue || this.filters.selectedCity?.id || this.filters.selectedType?.id)) ? true : false; 
   }
+
+  public changeAvailable(value: string) {
+    this.filters.available = value;
+    this.addParams();
+  }
 }

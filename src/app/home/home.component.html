@@ -1,7 +1,7 @@
 <p-panel [showHeader]="false">
     <div class="grid p-fluid">
         <div class="col-12 md:col-2 available-style">
-            <p-selectButton inputId="available" [options]="availabilities" [(ngModel)]="filters.available" optionLabel="label" optionValue="value"></p-selectButton>
+            <p-selectButton inputId="available" [options]="availabilities" [ngModel]="filters.available" (onChange)="changeAvailable($event.value)" optionLabel="label" optionValue="value"></p-selectButton>
         </div>
 
         <div class="col-12 md:col-2 field">
